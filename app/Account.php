@@ -23,4 +23,12 @@ class Account extends Model
 	{
 	    return $this->hasMany(User::class);
 	}
+
+	/**
+	 * Get the domains for the account.
+	 */
+	public function domains(): Relation
+	{
+	    return $this->hasMany(Domain::class);
+	}
 }
