@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'provider', 'provider_user_id', 'owner', 'avatar', 'account_id'
     ];
 
     /**
@@ -35,5 +35,15 @@ class User extends Authenticatable
     public function account(): Relation
     {
         return $this->belongsTo(Account::class);
+    }
+
+    /**
+     * Scope a query to only include provider.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeProvider($query, $provider)
+    {
+        return $query->where('provider', $provider);
     }
 }

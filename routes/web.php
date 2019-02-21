@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['namespace' => 'Auth'], function () {
+	// Login
+	Route::group(['prefix' => 'login'], function () {
+		Route::get('{provider}', 'LoginController@redirectToProvider');
+		Route::get('{provider}/callback', 'LoginController@handleProviderCallback');
+	});
+});

@@ -31,4 +31,15 @@ class Account extends Model
 	{
 	    return $this->hasMany(Domain::class);
 	}
+
+	/**
+	 * Set the user who created this account
+	 * @param  User   $user
+	 * @return bool
+	 */
+	public function createdBy(User $user): bool
+	{
+		$this->created_by = $user->id;
+		return $this->save();
+	}
 }

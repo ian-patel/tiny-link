@@ -40,4 +40,9 @@ return [
         ],
     ],
 
+    'twitter' => [
+        'client_id' => env('TWITTER_CLIENT_ID'),         // Your TWITTER Client ID
+        'client_secret' => env('TWITTER_CLIENT_SECRET'), // Your TWITTER Client secret
+        'redirect' => env('TWITTER_CLIENT_REDIRECT')
+    ],
 ];

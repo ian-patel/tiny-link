@@ -18,7 +18,7 @@ class CreateAccountsTable extends Migration
             $table->string('name');
             $table->timestamps();
 
-            $table->unsignedInteger('created_by')->index();
+            $table->unsignedInteger('created_by')->index()->nullable();
         });
     }
 
