@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Socialite;
+use App\User;
 use Illuminate\Http\Request;
 use App\Auth\Passport\CookieFactory;
 use App\Http\Controllers\Controller;
@@ -99,5 +100,21 @@ class LoginController extends Controller
         return $this->cookieFactory->make(
             $user->getKey()
         );
+    }
+
+    /**
+     * Test Login
+     * @param  Request $request [description]
+     * @param  User    $user    [description]
+     * @return [type]           [description]
+     */
+    public function testLogin(Request $request, User $user)
+    {
+        // Login user in session
+        Auth::login($user);
+
+        // Login user in session
+        return response()->json($user)
+            ->withCookie($this->createCookie($request, $user));
     }
 }
