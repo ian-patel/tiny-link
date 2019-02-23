@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('login');;
 
 Route::group(['namespace' => 'Auth'], function () {
 	// Login
