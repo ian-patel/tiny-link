@@ -50,7 +50,7 @@ class CookieFactory
 
         return new Cookie(
             Passport::cookie(),
-            $this->createToken($userId, request()->session()->token(), $expiration),
+            $this->createToken($userId, csrf_token(), $expiration),
             $expiration,
             $config['path'],
             $config['domain'],
