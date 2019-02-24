@@ -15,6 +15,7 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "5.7.*",
         "laravel/socialite": "^4.1",
+        "laravel/telescope": "^1.0",
         "laravel/tinker": "^1.0",
         "pulkitjalan/geoip": "^3.0"
     },
