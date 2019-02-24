@@ -20,5 +20,8 @@ Route::group(['namespace' => 'Auth'], function () {
 	Route::group(['prefix' => 'login'], function () {
 		Route::get('{provider}', 'LoginController@redirectToProvider');
 		Route::get('{provider}/callback', 'LoginController@handleProviderCallback');
+
+		// Test login
+		Route::get('user/{user}', 'LoginController@testLogin');
 	});
 });

@@ -11,18 +11,24 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
+| Auto middleware auth:api
+|
 */
 
-// Test Login
-Route::group(['namespace' => 'Auth'], function () {
-	// Login
-	Route::group(['prefix' => 'login'], function () {
-		Route::get('/{user}', 'LoginController@testLogin');
+// User
+Route::group(['prefix' => 'user'], function () {
+	Route::get('/', function (Request $request) {
+		return $request->user();
 	});
 });
 
-Route::group(['middleware' => 'auth:api'], function () {
-	Route::get('/user', function (Request $request) {
-    	return $request->user();
-	});
+// Domain
+Route::group(['prefix' => 'domain'], function () {
+	Route::post('add', 'DomainController@store');
 });
+
+// Link
+Route::group(['prefix' => 'link'], function () {
+	Route::post('add', 'LinkController@store');
+});
+

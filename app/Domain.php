@@ -3,52 +3,70 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Domain extends Model
 {
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = [
-	    'name', 'account_id'
-	];
+    use SoftDeletes;
 
-	/**
-	 * The model's default values for attributes.
-	 *
-	 * @var array
-	 */
-	protected $attributes = [
-	    'is_default' => false,
-	];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
 
-	/**
-	 * Get the account that owns the domain.
-	 */
-	public function account(): Relation
-	{
-	    return $this->belongsTo(Account::class);
-	}
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_by', 'account_id', 'deleted_at',
+    ];
 
-	/**
-	 * Save the model to the database.
-	 *
-	 * @param  array  $options
-	 * @return bool
-	 */
-	public function save(array $options = []): bool
-	{
-	    if ($this->isDirty('name')) {
-	    	$elements = parse_url($this->name);
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_default' => 'bool',
+        'is_active' => 'bool',
+    ];
 
-	    	$this->host = $elements['host'] ?? null;
-	    	$this->scheme = $elements['scheme'] ?? null;
-	    }
+    /**
+     * Get the account that owns the domain.
+     */
+    public function account(): Relation
+    {
+        return $this->belongsTo(Account::class);
+    }
 
-	    // Save
-	    return parent::save($options);
-	}
+    /**
+     * Get the links for the domain.
+     */
+    public function links(): Relation
+    {
+        return $this->hasMany(Link::class);
+    }
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = []): bool
+    {
+        if ($this->account->domains()->doesntExist()) {
+            $this->is_default = true;
+        }
+
+        // Save
+        return parent::save($options);
+    }
 }
