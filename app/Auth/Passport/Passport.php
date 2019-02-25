@@ -26,7 +26,7 @@ class Passport
      */
     public static function cookie($cookie = null)
     {
-        if (is_null($cookie)) {
+        if (null === $cookie) {
             return static::$cookie;
         }
 
@@ -43,7 +43,7 @@ class Passport
      */
     public static function remember($remember = null)
     {
-        if (is_null($remember)) {
+        if (null === $remember) {
             return static::$remember;
         }
 
