@@ -1,4 +1,7 @@
+/* eslint import/no-extraneous-dependencies: ["off"] */
+const path = require('path');
 const mix = require('laravel-mix');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +14,36 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/app.js', 'js')
+  .sass('resources/sass/app.scss', 'css/')
+  .extract([
+    'vue',
+    'axios',
+    'lodash',
+    'ant-design-vue',
+    // 'element-ui',
+    'vue-router',
+  ])
+  .sourceMaps()
+  .setResourceRoot()
+  .webpackConfig({
+    output: {
+      path: path.resolve(Mix.isUsing('hmr') ? '/' : 'public/'),
+      filename: '[name].js',
+      chunkFilename: 'js/chunks/[name].js?id=[chunkhash]',
+      publicPath: Mix.isUsing('hmr') ? ('http://localhost:8089/') : '/',
+    },
+    resolve: {
+      alias: {
+        styles: path.resolve(__dirname, 'resources/sass'),
+        App: path.resolve(__dirname, 'resources/js'),
+      },
+    },
+    plugins: mix.inProduction() ? [
+      new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
+    ] : [],
+  });
+
+if (mix.inProduction()) {
+  mix.version();
+}

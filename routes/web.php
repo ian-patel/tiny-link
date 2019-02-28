@@ -1,5 +1,7 @@
 <?php
 
+use App\Supports\VuexInitialState;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,17 +13,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('login');;
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('login');
 
 Route::group(['namespace' => 'Auth'], function () {
-	// Login
-	Route::group(['prefix' => 'login'], function () {
-		Route::get('{provider}', 'LoginController@redirectToProvider');
-		Route::get('{provider}/callback', 'LoginController@handleProviderCallback');
+    // Login
+    Route::group(['prefix' => 'login'], function () {
+        Route::get('{provider}', 'LoginController@redirectToProvider');
+        Route::get('{provider}/callback', 'LoginController@handleProviderCallback');
 
-		// Test login
-		Route::get('user/{user}', 'LoginController@testLogin');
-	});
+        // Test login
+        Route::get('user/{user}', 'LoginController@testLogin');
+    });
 });
+
+
+// Vue routes
+Route::get('/{vue?}', function () {
+    return view('welcome', ['initialState' => VuexInitialState::session()]);
+})->where('vue', '[\/\w\.-]*');

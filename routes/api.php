@@ -17,18 +17,17 @@ use Illuminate\Http\Request;
 
 // User
 Route::group(['prefix' => 'user'], function () {
-	Route::get('/', function (Request $request) {
-		return $request->user();
-	});
+    Route::get('/', function (Request $request) {
+        return $request->user();
+    });
 });
 
 // Domain
 Route::group(['prefix' => 'domain'], function () {
-	Route::post('add', 'DomainController@store');
+    Route::post('add', 'DomainController@store');
 });
 
 // Link
 Route::group(['prefix' => 'link'], function () {
-	Route::post('add', 'LinkController@store');
+    Route::post('add', 'LinkController@store');
 });
-
