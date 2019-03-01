@@ -74,30 +74,13 @@ class TokenGuard extends BaseTokenGuard
      */
     protected function decodeJwtTokenCookie()
     {
-        $encrypter = $this->getEncrypter();
+        $encrypter = getEncrypter();
 
         return (array) JWT::decode(
             $this->decryptCookie($this->request->cookie(Passport::cookie())),
             $encrypter->getKey(),
             ['HS256']
         );
-    }
-
-    /**
-     * The encrypter implementation
-     *
-     * @return Illuminate\Encryption\Encrypter;
-     */
-    protected function getEncrypter()
-    {
-        // If the key starts with "base64:", we will need to decode the key before handing
-        // it off to the encrypter. Keys may be base-64 encoded for presentation and we
-        // want to make sure to convert them back to the raw bytes before encrypting.
-        if (Str::startsWith($key = config('app.key'), 'base64:')) {
-            $key = base64_decode(substr($key, 7));
-        }
-
-        return new Encrypter($key, config('app.cipher'));
     }
 
     /**
@@ -142,6 +125,6 @@ class TokenGuard extends BaseTokenGuard
      */
     public function decryptCookie($cookie)
     {
-        return $this->getEncrypter()->decrypt($cookie, false);
+        return getEncrypter()->decrypt($cookie, false);
     }
 }
