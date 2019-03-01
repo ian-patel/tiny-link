@@ -28,8 +28,11 @@ Route::group(['namespace' => 'Auth'], function () {
     });
 });
 
+Route::get('/login', function () {
+    return view('welcome', ['initialState' => VuexInitialState::session()]);
+})->name('login');
 
 // Vue routes
 Route::get('/{vue?}', function () {
     return view('welcome', ['initialState' => VuexInitialState::session()]);
-})->where('vue', '[\/\w\.-]*');
+})->where('vue', '[\/\w\.-]*')->middleware('auth:api');

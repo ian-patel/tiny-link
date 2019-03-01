@@ -2,6 +2,8 @@
 
 namespace App\Auth\Guards;
 
+use App\User;
+use App\AuthToken;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Str;
 use App\Auth\Passport\Passport;
@@ -33,7 +35,8 @@ class TokenGuard extends BaseTokenGuard
             return $this->user;
         }
 
-        if ($this->request->bearerToken()) {
+        // Currently only coockie based authentication implemented
+        if (false and $this->request->bearerToken()) {
             return $this->authenticateViaBearerToken();
         } elseif ($this->request->cookie(Passport::cookie())) {
             return $this->authenticateViaCookie();
@@ -46,21 +49,33 @@ class TokenGuard extends BaseTokenGuard
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
-    protected function authenticateViaCookie()
+    protected function authenticateViaCookie(): ?User
     {
         // If we need to retrieve the token from the cookie, it'll be encrypted so we must
         // first decrypt the cookie and then attempt to find the token value within the
         // database. If we can't decrypt the value we'll bail out with a null return.
         try {
-            $token = $this->decodeJwtTokenCookie();
+            $payload = $this->decodeJwtTokenCookie();
+            $userId = $payload['sub'];
         } catch (Exception $e) {
-            return;
+            return null;
+        }
+
+        // User id not found in token's payload
+        if (null === $userId) {
+            return null;
+        }
+
+        // Get all user's tokens and check token is valid
+        $token = $this->request->cookie(Passport::cookie());
+        if (false === $this->isValidAuthToken($userId, $token)) {
+            return null;
         }
 
         // If this user exists, we will return this user and attach a "transient" token to
         // the user model. The transient token assumes it has all scopes since the user
         // is physically logged into the application via the application's interface.
-        if ($user = $this->provider->retrieveById($token['sub'])) {
+        if ($user = $this->provider->retrieveById($userId)) {
             $this->user = $user;
             return $user;
         }
@@ -77,7 +92,7 @@ class TokenGuard extends BaseTokenGuard
         $encrypter = getEncrypter();
 
         return (array) JWT::decode(
-            $this->decryptCookie($this->request->cookie(Passport::cookie())),
+            $this->request->cookie(Passport::cookie()), // decrypted cookie
             $encrypter->getKey(),
             ['HS256']
         );
@@ -118,13 +133,20 @@ class TokenGuard extends BaseTokenGuard
     }
 
     /**
-     * Decrypt Cookie
+     * Determine weather Authtoken is valid.
      *
-     * @param  string $value
-     * @return string
+     * @param integer $userId
+     * @param string $token
+     * @return boolean
      */
-    public function decryptCookie($cookie)
+    private function isValidAuthToken(int $userId, string $token): bool
     {
-        return getEncrypter()->decrypt($cookie, false);
+        return AuthToken::query()
+            ->where([
+                'user_id' => $userId,
+                'token' => $token,
+            ])
+            ->notExpired()
+            ->count() >=1 ;
     }
 }

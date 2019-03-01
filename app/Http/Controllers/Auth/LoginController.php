@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
-use Socialite;
 use App\User;
+use Socialite;
+use App\Supports\AuthCookie;
 use Illuminate\Http\Request;
-use App\Auth\Passport\CookieFactory;
 use App\Http\Controllers\Controller;
 use App\Supports\SocialAccountService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -33,23 +33,6 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
-    /**
-     * The API token cookie factory instance.
-     *
-     * @var App\Auth\Passport\CookieFactory
-     */
-    protected $cookieFactory;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @param  App\Auth\Passport\CookieFactory  $cookieFactory
-     * @return void
-     */
-    public function __construct(CookieFactory $cookieFactory)
-    {
-        $this->cookieFactory = $cookieFactory;
-    }
 
     /**
      * Redirect to social website
@@ -80,26 +63,10 @@ class LoginController extends Controller
         $user = $service->createOrGetUser($provider, $providerUser);
 
         // Login user in session
-        Auth::login($user);
+        // Auth::login($user);
 
         return redirect()->to('/')
-            ->withCookie($this->createCookie($request, $user));
-    }
-
-    /**
-     * Create cookie after the user is authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed $user
-     * @return \Symfony\Component\HttpFoundation\Cookie
-     */
-    protected function createCookie(Request $request, $user)
-    {
-        $this->cookieFactory->remember('forever');
-
-        return $this->cookieFactory->make(
-            $user->getKey()
-        );
+            ->withCookie(AuthCookie::make($user));
     }
 
     /**
@@ -111,10 +78,10 @@ class LoginController extends Controller
     public function testLogin(Request $request, User $user)
     {
         // Login user in session
-        Auth::login($user);
+        // Auth::login($user);
 
         // Login user in session
         return response()->json($user)
-            ->withCookie($this->createCookie($request, $user));
+            ->withCookie(AuthCookie::make($user));
     }
 }

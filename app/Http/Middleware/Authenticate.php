@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -14,6 +15,12 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        // This authentication will check token.
+        // when they are not authenticated by token but still login with session
+        // Logout from session too
+        Auth::logout();
+
+        // Redirect to login page
         if (! $request->expectsJson()) {
             return route('login');
         }
