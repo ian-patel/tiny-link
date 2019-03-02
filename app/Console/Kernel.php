@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use App\Console\Commands\UpdateGeoIPDatabase;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -26,6 +27,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        // Update GeoIp Databse on 10th 3PM every month
+        $schedule->command(UpdateGeoIPDatabase::class)->monthlyOn(10, '15:00');
     }
 
     /**
