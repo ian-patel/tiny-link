@@ -18,9 +18,14 @@ class CreateUsersTokensTable extends Migration
             $table->unsignedInteger('user_id')->index();
             $table->string('token');
             $table->dateTime('expire_at');
+            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('device_id');
+            $table->ipAddress('ip')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('device_id')->references('id')->on('devices');
         });
     }
 

@@ -36,6 +36,22 @@ class AuthToken extends Model
     }
 
     /**
+     * Get the device of the token.
+     */
+    public function device(): Relation
+    {
+        return $this->hasOne(Device::class);
+    }
+
+    /**
+     * Get the location of the token.
+     */
+    public function location(): Relation
+    {
+        return $this->hasOne(Location::class);
+    }
+
+    /**
      * Scope a query to only which are not expired.
      *
      * @param  \Illuminate\Database\Eloquent\Builder $query
@@ -73,8 +89,10 @@ class AuthToken extends Model
      */
     public function save(array $options = []): bool
     {
-        if (null === $this->token) {
+        if (!$this->exists) {
             $this->token = $this->createToken($this->user_id, $this->expire_at);
+            $this->location_id = Location::create(getGeoIP()->get())->id;
+            $this->device_id = Device::create()->id;
         }
 
         // Save

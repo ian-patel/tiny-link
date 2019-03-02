@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
+use PulkitJalan\GeoIP\GeoIP;
 use Illuminate\Encryption\Encrypter;
 
 if (! function_exists('getHost')) {
@@ -14,7 +15,6 @@ if (! function_exists('getHost')) {
         return parse_url($url, PHP_URL_HOST) ?? parse_url($url, PHP_URL_PATH) ?? null;
     }
 }
-
 
 if (!function_exists('getEncrypter')) {
     /**
@@ -38,5 +38,26 @@ if (!function_exists('getEncrypter')) {
         }
 
         return $encrypter;
+    }
+}
+
+if (! function_exists('getGeoIP')) {
+    /**
+     * Get GeoIP.
+     *
+     * @return string
+     */
+    function getGeoIP(): GeoIP
+    {
+        static $geoip;
+
+        if ($geoip === null) {
+            $geoip = new GeoIP();
+            $geoip->setIp(
+                request()->ip() === '127.0.0.1' ? '47.72.145.231' : request()->ip()
+            );
+        }
+
+        return $geoip;
     }
 }
