@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         // Update GeoIp Databse on 10th 3PM every month
-        $schedule->command(UpdateGeoIPDatabase::class)->monthlyOn(10, '15:00');
+        $schedule->command('geoip:update')->monthlyOn(10, '15:00');
     }
 
     /**

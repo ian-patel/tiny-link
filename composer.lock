@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ae7d5f8bbafca2a22cb979ce7555e50",
+    "content-hash": "ed6b78c556b83e68fc8c8506295e3281",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2266,6 +2266,73 @@
                 "shell"
             ],
             "time": "2018-10-13T15:16:03+00:00"
+        },
+        {
+            "name": "pulkitjalan/geoip",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pulkitjalan/geoip.git",
+                "reference": "c180750977707278065012a8af6f46720d132cfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pulkitjalan/geoip/zipball/c180750977707278065012a8af6f46720d132cfe",
+                "reference": "c180750977707278065012a8af6f46720d132cfe",
+                "shasum": ""
+            },
+            "require": {
+                "geoip2/geoip2": "^2.0",
+                "guzzlehttp/guzzle": "~6",
+                "illuminate/console": "~5",
+                "illuminate/support": "~5",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "PulkitJalan\\GeoIP\\GeoIPServiceProvider"
+                    ],
+                    "aliases": {
+                        "GeoIP": "PulkitJalan\\GeoIP\\Facades\\GeoIP"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PulkitJalan\\GeoIP\\": "src"
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pulkit Jalan"
+                }
+            ],
+            "description": "Geoip Wrapper with Laravel Support",
+            "homepage": "https://github.com/pulkitjalan/geoip",
+            "keywords": [
+                "geoip",
+                "ip-api",
+                "ipstack",
+                "maxmind",
+                "telize"
+            ],
+            "time": "2018-10-05T06:08:00+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

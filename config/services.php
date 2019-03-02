@@ -45,12 +45,4 @@ return [
         'client_secret' => env('TWITTER_CLIENT_SECRET'), // Your TWITTER Client secret
         'redirect' => env('TWITTER_CLIENT_REDIRECT')
     ],
-
-    'geoip' => [
-        'maxmind' => [
-            'autoupdate' => true,
-            'database' => 'GeoIP2/GeoLite2-City.mmdb', // Storage path
-            'source' => 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz',
-        ],
-    ]
 ];
