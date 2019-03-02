@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Auth;
 use App\User;
 use Socialite;
 use App\Supports\AuthCookie;
@@ -62,25 +61,18 @@ class LoginController extends Controller
         $providerUser = Socialite::driver($provider)->user();
         $user = $service->createOrGetUser($provider, $providerUser);
 
-        // Login user in session
-        // Auth::login($user);
-
         return redirect()->to('/')
             ->withCookie(AuthCookie::make($user));
     }
 
     /**
      * Test Login
-     * @param  Request $request [description]
-     * @param  User    $user    [description]
-     * @return [type]           [description]
+     * @param  Request $request
+     * @param  User    $user
+     * @return \Illuminate\Http\Response
      */
     public function testLogin(Request $request, User $user)
     {
-        // Login user in session
-        // Auth::login($user);
-
-        // Login user in session
         return response()->json($user)
             ->withCookie(AuthCookie::make($user));
     }
