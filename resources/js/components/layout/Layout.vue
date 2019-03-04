@@ -1,38 +1,19 @@
 <template>
-  <div id="components-layout-demo-basic">
-    <a-layout>
-      <a-layout-header>
-        <topbar :items="items" />
+  <a-layout>
+      <a-affix>
+      <a-layout-header :style="{background: '#fff' }">
+        <topbar/>
       </a-layout-header>
-      <a-layout-content>
-        <router-view />
+      </a-affix>
+    <a-layout>
+      <sidebar/>
+      <a-layout-content :style="{ margin: '0px 16px 0' }">
+        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
+          <router-view />
+        </div>
       </a-layout-content>
-      <a-layout-footer>Footer</a-layout-footer>
+      <!-- <a-layout-footer style="textAlign: center">2ny link ©2019</a-layout-footer> -->
     </a-layout>
-  </div>
+  </a-layout>
 </template>
-
 <script>
-
-import { mapActions, mapGetters } from 'vuex';
-
-export default {
-  data() {
-    return {
-      items: [
-        { title: 'Dashboard', name: '/dashboard', route: 'dashboard', icon: '😬' },
-        { title: 'Links', name: '/links', route: 'links', icon: '🤔' },
-      ]
-    }
-  },
-  computed: {
-    ...mapGetters(['user', 'isLoggedIn']),
-  },
-  watch: {
-    isLoggedIn(val) {
-      if (!val) this.$router.push({ name: 'login', query: { r: this.$route.fullPath } });
-    },
-  },
-  methods: mapActions(['logout']),
-};
-</script>

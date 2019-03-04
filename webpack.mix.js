@@ -15,9 +15,13 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
  */
 
 mix.js('resources/js/app.js', 'js')
-  .sass('resources/sass/app.scss', 'css/')
+  // .sass('resources/sass/app.scss', 'css/')
+  .less('resources/less/app.less', 'css/', {
+    javascriptEnabled: true,
+  })
   .extract([
     'vue',
+    'vuex',
     'axios',
     'lodash',
     'ant-design-vue',
@@ -31,12 +35,13 @@ mix.js('resources/js/app.js', 'js')
       path: path.resolve(Mix.isUsing('hmr') ? '/' : 'public/'),
       filename: '[name].js',
       chunkFilename: 'js/chunks/[name].js?id=[chunkhash]',
-      publicPath: Mix.isUsing('hmr') ? ('http://localhost:8089/') : '/',
+      publicPath: Mix.isUsing('hmr') ? ('http://localhost:8080/') : '/',
     },
     resolve: {
       alias: {
         styles: path.resolve(__dirname, 'resources/sass'),
         App: path.resolve(__dirname, 'resources/js'),
+        svg: path.resolve(__dirname, 'resources/svg'),
       },
     },
     plugins: mix.inProduction() ? [

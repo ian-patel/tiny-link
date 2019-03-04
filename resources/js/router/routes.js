@@ -2,6 +2,7 @@ import Layout from 'App/components/layout/Layout';
 import Dashboard from 'App/pages/Dashboard';
 import Links from 'App/pages/Links';
 import Login from 'App/pages/Login';
+import NotFound from 'App/pages/NotFound';
 
 // routes
 const routes = [
@@ -34,6 +35,11 @@ const routes = [
         },
       },
     ]
+  },
+  {
+    path: '*',
+    name: '*',
+    component: NotFound
   },
 ];
 

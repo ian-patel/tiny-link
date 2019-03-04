@@ -1,23 +1,33 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <a-timeline>
+    <h1>Dashboard</h1>
+    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
+    <a-timeline-item>Solve initial network problems 2015-09-01</a-timeline-item>
+    <a-timeline-item>Technical testing 2015-09-01</a-timeline-item>
+    <a-timeline-item>Network problems being solved 2015-09-01</a-timeline-item>
+    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
+    <a-timeline-item>Solve initial network problems 2015-09-01</a-timeline-item>
+    <a-timeline-item>Technical testing 2015-09-01</a-timeline-item>
+    <a-timeline-item>Network problems being solved 2015-09-01</a-timeline-item>
+    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
+    <a-timeline-item>Solve initial network problems 2015-09-01</a-timeline-item>
+    <a-timeline-item>Technical testing 2015-09-01</a-timeline-item>
+    <a-timeline-item>Network problems being solved 2015-09-01</a-timeline-item>
+    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
+    <a-timeline-item>Solve initial network problems 2015-09-01</a-timeline-item>
+    <a-timeline-item>Technical testing 2015-09-01</a-timeline-item>
+    <a-timeline-item>Network problems being solved 2015-09-01</a-timeline-item>
+    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
+    <a-timeline-item>Solve initial network problems 2015-09-01</a-timeline-item>
+    <a-timeline-item>Technical testing 2015-09-01</a-timeline-item>
+    <a-timeline-item>Network problems being solved 2015-09-01</a-timeline-item>
+    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
+    <a-timeline-item>Solve initial network problems 2015-09-01</a-timeline-item>
+    <a-timeline-item>Technical testing 2015-09-01</a-timeline-item>
+    <a-timeline-item>Network problems being solved 2015-09-01</a-timeline-item>
+    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
+    <a-timeline-item>Solve initial network problems 2015-09-01</a-timeline-item>
+    <a-timeline-item>Technical testing 2015-09-01</a-timeline-item>
+    <a-timeline-item>Network problems being solved 2015-09-01</a-timeline-item>
+  </a-timeline>
 </template>
-
-<script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
-</script>
