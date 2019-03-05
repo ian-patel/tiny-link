@@ -23,11 +23,12 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 // Domain
-Route::group(['prefix' => 'domain'], function () {
+Route::group(['prefix' => 'domains'], function () {
     Route::post('add', 'DomainController@store');
 });
 
 // Link
-Route::group(['prefix' => 'link'], function () {
+Route::group(['prefix' => 'links'], function () {
+    Route::get('/', 'LinkController@index');
     Route::post('add', 'LinkController@store');
 });

@@ -13,9 +13,12 @@ class LinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return response()->json([
+            'sucess' => true,
+            'link' => $request->user()->account->links()->with(['domain'])->get(),
+        ]);
     }
 
     /**
@@ -75,7 +78,6 @@ class LinkController extends Controller
             'sucess' => true,
             'link' => $link,
         ]);
-
     }
 
     /**
