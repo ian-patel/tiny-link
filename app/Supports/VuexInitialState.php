@@ -11,9 +11,11 @@ class VuexInitialState
      */
     public static function session(): array
     {
+        $user = request()->user();
         return [
             'auth' => [
-                'user' => request()->user(),
+                'user' => $user,
+                'account' => $user->account,
             ]
         ];
     }
