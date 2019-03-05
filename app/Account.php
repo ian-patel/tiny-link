@@ -42,6 +42,14 @@ class Account extends Model
     }
 
     /**
+     * Get the links for the account.
+     */
+    public function links(): Relation
+    {
+        return $this->hasMany(Link::class);
+    }
+
+    /**
      * Set the user who created this account
      * @param  User   $user
      * @return bool
