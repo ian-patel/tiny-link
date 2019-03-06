@@ -22,6 +22,11 @@ Route::group(['prefix' => 'user'], function () {
     });
 });
 
+// Auth
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('logout', 'Auth\LoginController@logout');
+});
+
 // Domain
 Route::group(['prefix' => 'domains'], function () {
     Route::post('add', 'DomainController@store');

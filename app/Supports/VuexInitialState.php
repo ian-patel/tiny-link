@@ -15,7 +15,7 @@ class VuexInitialState
         return [
             'auth' => [
                 'user' => $user,
-                'account' => $user->account,
+                'account' => optional($user)->account,
             ]
         ];
     }

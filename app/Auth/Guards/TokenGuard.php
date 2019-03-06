@@ -124,10 +124,11 @@ class TokenGuard extends BaseTokenGuard
      */
     public function logout()
     {
-        $this->request->session()->invalidate();
+        // Delete the token
+        $token = $this->request->cookie(Passport::cookie());
+        AuthToken::query()->token($token)->delete();
 
         Cookie::queue(Cookie::forget(Passport::cookie()));
-        Cookie::queue(Cookie::forget(Passport::remember()));
 
         return true;
     }
@@ -142,10 +143,8 @@ class TokenGuard extends BaseTokenGuard
     private function isValidAuthToken(int $userId, string $token): bool
     {
         return AuthToken::query()
-            ->where([
-                'user_id' => $userId,
-                'token' => $token,
-            ])
+            ->where('user_id', $userId)
+            ->token($token)
             ->notExpired()
             ->count() >=1 ;
     }

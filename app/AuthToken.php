@@ -64,6 +64,18 @@ class AuthToken extends Model
     }
 
     /**
+     * Scope a query to only which is requested token.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  string $token
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeToken($query, string $token = null)
+    {
+        return $query->where('token', $token);
+    }
+
+    /**
      * Create a new JWT token for the given user
      *
      * @param  User  $user
