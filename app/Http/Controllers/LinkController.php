@@ -15,9 +15,23 @@ class LinkController extends Controller
      */
     public function index(Request $request)
     {
+        $q = $request->q;
+        $limit = $request->limit;
+
+        $links = $request->user()->account
+            ->links()
+            ->latest()
+            ->with(['domain'])
+            // Search query
+            ->when($q, function ($query) use ($q) {
+                return $query->search($q);
+            })
+            ->simplePaginate((int) $limit);
+
         return response()->json([
-            'sucess' => true,
-            'link' => $request->user()->account->links()->with(['domain'])->get(),
+            'success' => true,
+            'links' => $links->items(),
+            'currentPage' => $links->currentPage()
         ]);
     }
 

@@ -69,4 +69,14 @@ class Domain extends Model
         // Save
         return parent::save($options);
     }
+
+    /**
+     * Get full domain name
+     *
+     * @return string
+     */
+    public function getFullDomainNameAttribute(): ?string
+    {
+        return "{$this->scheme}://{$this->name}/";
+    }
 }

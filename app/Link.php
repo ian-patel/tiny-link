@@ -26,7 +26,16 @@ class Link extends Model
      * @var array
      */
     protected $hidden = [
-        'account_id', 'deleted_at', 'created_by_id',
+        'account_id', 'deleted_at', 'created_by_id', 'domain'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'short_link',
     ];
 
     /**
@@ -129,5 +138,18 @@ class Link extends Model
         }
 
         return $title;
+    }
+
+    /**
+     * Get short link
+     *
+     * @return array
+     */
+    public function getShortLinkAttribute(): ?array
+    {
+        return [
+            "full" => "{$this->domain->fullDomainName}{$this->slug}",
+            'link' => "{$this->domain->name}/{$this->slug}",
+        ];
     }
 }
