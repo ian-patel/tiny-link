@@ -5,7 +5,6 @@ namespace App\Auth\Guards;
 use App\User;
 use App\AuthToken;
 use Firebase\JWT\JWT;
-use Illuminate\Support\Str;
 use App\Auth\Passport\Passport;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Cookie;
@@ -146,6 +145,6 @@ class TokenGuard extends BaseTokenGuard
             ->where('user_id', $userId)
             ->token($token)
             ->notExpired()
-            ->count() >=1 ;
+            ->count() >=1;
     }
 }
