@@ -129,6 +129,26 @@ class LinkController extends Controller
     }
 
     /**
+     * Dig the link.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function dig(Request $request)
+    {
+        $link = $request->input('link');
+
+        return response()->json([
+            'sucess' => true,
+            'data' => [
+                'title' => getTitle($link),
+                'host' => getHost($link),
+                'link' => $link,
+            ]
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

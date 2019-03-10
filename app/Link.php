@@ -108,7 +108,7 @@ class Link extends Model
     {
         if ($this->isDirty('link')) {
             $this->hash = md5($this->link);
-            $this->title = $this->fetchTitle();
+            $this->title = getTitle($this->link);
             $this->hostname = getHost($this->link);
         }
 
@@ -121,23 +121,6 @@ class Link extends Model
         }
 
         return $save;
-    }
-
-    /**
-     * fetch Link title
-     *
-     * @return string
-     */
-    public function fetchTitle(): ?string
-    {
-        try {
-            $data = @file_get_contents($this->link);
-            $title = preg_match('/<title[^>]*>(.*?)<\/title>/ims', $data, $matches) ? $matches[1] : null;
-        } catch (Exception $e) {
-            return null;
-        }
-
-        return $title;
     }
 
     /**

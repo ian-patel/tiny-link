@@ -29,6 +29,15 @@ class Domain extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_domain_name',
+    ];
+
+    /**
      * The attributes that should be casted to native types.
      *
      * @var array

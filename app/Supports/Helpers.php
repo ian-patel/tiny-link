@@ -16,6 +16,25 @@ if (! function_exists('getHost')) {
     }
 }
 
+if (! function_exists('getTitle')) {
+    /**
+     * Get Link title
+     *
+     * @return string
+     */
+    function getTitle($link = null): ?string
+    {
+        try {
+            $data = @file_get_contents($link);
+            $title = preg_match('/<title[^>]*>(.*?)<\/title>/ims', $data, $matches) ? $matches[1] : null;
+        } catch (Exception $e) {
+            return null;
+        }
+
+        return $title;
+    }
+}
+
 if (!function_exists('getEncrypter')) {
     /**
          * The encrypter implementation
