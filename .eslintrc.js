@@ -2,14 +2,6 @@ const path = require("path");
 
 module.exports = {
   root: true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "vue",
-      "autoFix": true
-    },
-  ],
   extends: [
     "airbnb",
     "plugin:vue/recommended",
@@ -26,7 +18,7 @@ module.exports = {
   },
   parserOptions: {
     // Allow async and await
-    ecmaVersion: 6
+    ecmaVersion: 7,
   },
   settings: {
     "import/resolver": {
@@ -34,7 +26,7 @@ module.exports = {
         config: {
           resolve: {
             alias: {
-              app: path.resolve(__dirname, "resources/assets/js")
+              App: path.resolve(__dirname, 'resources/js'),
             }
           }
         }
