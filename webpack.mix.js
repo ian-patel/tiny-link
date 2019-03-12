@@ -39,7 +39,7 @@ mix.js('resources/js/app.js', 'js')
     },
     resolve: {
       alias: {
-        styles: path.resolve(__dirname, 'resources/sass'),
+        styles: path.resolve(__dirname, 'resources/less'),
         App: path.resolve(__dirname, 'resources/js'),
         svg: path.resolve(__dirname, 'resources/svg'),
       },

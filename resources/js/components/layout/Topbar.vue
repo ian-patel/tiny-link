@@ -11,7 +11,7 @@
     </div>
     <div class="ant-col-md-18 ant-col-lg-23 ant-col-xl-23 ant-col-xxl-23">
       <a-menu mode="horizontal" class="header" :style="{height: '49px' }">
-        <a-button type="primary" icon="plus" class="header__button">New link</a-button>
+        <!-- <AddLinkButton /> -->
         <a-sub-menu class="header__menu" trigger="click">
           <span slot="title" class="submenu-title-wrapper">
             <a-avatar size="default" :src="user.avatar" shape="square"/>

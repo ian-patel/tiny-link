@@ -5,7 +5,7 @@
         <template v-for="item in items">
           <a-menu-item :key="item.title" class="sidebar__menuitem">
             <router-link :to="{ name: item.name}">
-              <a-icon :type="item.icon" />
+              <a-icon :type="item.icon"/>
               <span class="nav-text">{{ item.title }}</span>
             </router-link>
           </a-menu-item>
@@ -25,17 +25,22 @@ export default {
         { title: "Links", name: "links", route: "links", icon: "link" },
         {
           title: "Reports",
-          name: "dashboard",
+          name: "reports",
           route: "reports",
           icon: "bar-chart"
         },
         {
           title: "Domains",
-          name: "dashboard",
-          route: "reports",
+          name: "domains",
+          route: "domains",
           icon: "upload"
         },
-        { title: "Settings", name: "dashboard", route: "reports", icon: "setting" }
+        {
+          title: "Settings",
+          name: "settings",
+          route: "settings",
+          icon: "setting"
+        }
       ]
     };
   },

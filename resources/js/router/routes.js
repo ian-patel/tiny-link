@@ -1,5 +1,7 @@
 import Layout from 'App/components/layout/Layout';
-import Dashboard from 'App/pages/Dashboard';
+import Domains from 'App/pages/Domains';
+import Reports from 'App/pages/Reports';
+import Settings from 'App/pages/Settings';
 import Links from 'App/pages/Links';
 import Login from 'App/pages/Login';
 import NotFound from 'App/pages/NotFound';
@@ -21,9 +23,9 @@ const routes = [
       {
         path: '/',
         name: 'dashboard',
-        component: Dashboard,
+        component: Links,
         meta: {
-          title: 'Dashboard',
+          title: 'Links',
         },
       },
       {
@@ -34,12 +36,36 @@ const routes = [
           title: 'Links',
         },
       },
-    ]
+      {
+        path: '/reports',
+        name: 'reports',
+        component: Reports,
+        meta: {
+          title: 'Reports',
+        },
+      },
+      {
+        path: '/domains',
+        name: 'domains',
+        component: Domains,
+        meta: {
+          title: 'Domains',
+        },
+      },
+      {
+        path: '/settings',
+        name: 'settings',
+        component: Settings,
+        meta: {
+          title: 'Settings',
+        },
+      },
+    ],
   },
   {
     path: '*',
     name: '*',
-    component: NotFound
+    component: NotFound,
   },
 ];
 
