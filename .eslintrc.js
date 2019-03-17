@@ -26,7 +26,7 @@ module.exports = {
         config: {
           resolve: {
             alias: {
-              App: path.resolve(__dirname, 'resources/js'),
+              app: path.resolve(__dirname, 'resources/js'),
             }
           }
         }

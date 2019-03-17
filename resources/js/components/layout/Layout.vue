@@ -1,13 +1,9 @@
 <template>
   <a-layout>
-    <a-affix>
-      <a-layout-header :style="{background: '#fff' }">
-        <topbar/>
-      </a-layout-header>
-    </a-affix>
+    <sidebar/>
     <a-layout>
-      <sidebar/>
-      <a-layout-content :style="{ margin: '0px 16px 0' }">
+      <topbar/>
+      <a-layout-content :style="{ margin: '0px 16px 0' }" type="flex" justify="center">
         <div :style="{ padding: '20px', background: '#fff', minHeight: '360px' }">
           <router-view/>
         </div>

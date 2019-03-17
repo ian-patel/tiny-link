@@ -1,5 +1,5 @@
-import * as api from 'App/api/auth';
-import * as types from 'App/store/mutations/auth';
+import * as api from 'app/api/auth';
+import * as types from 'app/store/mutations/auth';
 
 // state
 export const state = {

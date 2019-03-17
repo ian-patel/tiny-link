@@ -3,7 +3,7 @@
     <TitleBar title="Links"/>
 
     <!-- <a-divider/> -->
-    <a-row v-if="empty">
+    <a-row v-if="hasLinks">
       <a-col :span="24">
         <a-row>
           <a-col :span="24" class="toolbar">
@@ -34,7 +34,7 @@
 
           <a-list-item
             slot="renderItem"
-            slot-scope="item, index"
+            slot-scope="item"
             @mouseover="mouseovering = index"
             @mouseout="mouseovering = -1"
           >
@@ -111,6 +111,7 @@
 <script>
 // import EmptyBox from "svg/authentication.svg";
 import { mapGetters, mapActions } from "vuex";
+import { favicon } from "app/util";
 
 export default {
   data() {
@@ -136,10 +137,13 @@ export default {
         limit: this.limit,
         page: this.page
       };
-    }
+    },
+    hasLinks() {
+      return this.links.length > 0;
+    },
   },
   mounted() {
-    if (!this.links) {
+    if (!this.hasLinks) {
       this.fetchLinks(this.fetchQuery);
     }
   },
@@ -149,7 +153,7 @@ export default {
       this.fetchLinks(this.fetchQuery);
     },
     faviconLink(url) {
-      return `https://www.google.com/s2/favicons?domain=${url}`;
+      return favicon(url);
     }
   }
 };

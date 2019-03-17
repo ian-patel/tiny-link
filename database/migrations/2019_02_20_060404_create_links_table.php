@@ -27,7 +27,7 @@ class CreateLinksTable extends Migration
             $table->string('hostname')->nullable();
 
             $table->string('hash')->nullable();
-            $table->tinyInteger('clicks')->default(0);
+            $table->integer('clicks')->default(0);
 
             $table->timestamps();
             $table->softDeletes();

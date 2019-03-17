@@ -18,6 +18,9 @@ class VuexInitialState
                 'account' => $user->account ?? null,
             ],
             'domains' => $user->account->domains ?? null,
+            'links' => [
+                'data' => $user->account->links()->limit(10)->get() ?? null,
+            ],
         ];
     }
 }

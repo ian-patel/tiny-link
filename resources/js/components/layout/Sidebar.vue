@@ -1,7 +1,15 @@
 <template>
-  <a-layout-sider breakpoint="lg" width="110" collapsedWidth="0" theme="light" class="sidebar">
-    <a-affix :offsetTop="64">
-      <a-menu mode="inline" :inlineIndent="16" :defaultSelectedKeys="['Links']" theme="light">
+  <a-layout-sider breakpoint="lg" width="110" collapsedWidth="0" class="sidebar" theme="light">
+    <a-affix>
+      <router-link :to="{ name: 'dashboard'}">
+        <a-icon type="dingding" class="sidebar__logo"/>
+      </router-link>
+      <a-menu
+        mode="inline"
+        :inlineIndent="16"
+        :defaultSelectedKeys="['Links']"
+        class="siderbar_menu"
+      >
         <template v-for="item in items">
           <a-menu-item :key="item.title" class="sidebar__menuitem">
             <router-link :to="{ name: item.name}">
@@ -62,14 +70,20 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar {
-  border-right: 1px solid #e8e8e8 !important;
+  background: transparent linear-gradient(80deg, #0b4182 1%, #1a78cf 99%) repeat
+    scroll 0% 0%;
+  // border-right: 1px solid #e8e8e8 !important;
   padding-left: 0px !important;
 
   &__logo {
-    height: 32px;
+    margin: 30px;
+    font-size: 44px;
     text-align: center;
-    margin: 16px;
-    margin-bottom: 40px;
+    color: #84bef1;
+  }
+
+  &__menu {
+    background: transparent !important;
   }
 
   &__menuitem {
@@ -86,6 +100,8 @@ export default {
     a {
       font-size: 16px !important;
       margin-top: 16px;
+      // color: #a1c8ee;
+      font-weight: 700;
     }
   }
 }
@@ -94,6 +110,33 @@ export default {
 .ant-menu-vertical,
 .ant-menu-vertical-left {
   border-right: none !important;
+  background: transparent !important;
+}
+
+.siderbar_menu a {
+  color: #84bef1;
+}
+
+.siderbar_menu .ant-menu-item-selected,
+.siderbar_menu .ant-menu-item-active {
+  border-right: none !important;
+  background: transparent !important;
+
+  a {
+    color: #fff !important;
+  }
+
+  &:after {
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #ffffff;
+    content: " ";
+    position: absolute;
+    right: 0;
+    top: 35px;
+  }
 }
 </style>
 

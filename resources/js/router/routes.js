@@ -1,10 +1,10 @@
-import Layout from 'App/components/layout/Layout';
-import Domains from 'App/pages/Domains';
-import Reports from 'App/pages/Reports';
-import Settings from 'App/pages/Settings';
-import Links from 'App/pages/Links';
-import Login from 'App/pages/Login';
-import NotFound from 'App/pages/NotFound';
+import Layout from 'app/components/layout';
+import Domains from 'app/pages/Domains';
+import Reports from 'app/pages/Reports';
+import Settings from 'app/pages/Settings';
+import Links from 'app/pages/Links';
+import Login from 'app/pages/Login';
+import NotFound from 'app/pages/NotFound';
 
 // routes
 const routes = [
