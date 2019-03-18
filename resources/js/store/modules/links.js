@@ -25,7 +25,7 @@ export const mutations = {
 // actions
 export const actions = {
   /**
-   * Get Links
+   * Fetch Links
    * @param  {Function} options.commit
    * @return {Object} user
    */
