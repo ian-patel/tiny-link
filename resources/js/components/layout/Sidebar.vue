@@ -57,11 +57,12 @@ export default {
   },
   watch: {
     isLoggedIn(val) {
-      if (!val)
+      if (!val) {
         this.$router.push({
           name: "login",
           query: { r: this.$route.fullPath }
         });
+      }
     }
   },
   methods: mapActions(["logout"])

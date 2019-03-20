@@ -15,7 +15,7 @@ const router = new Router({
   routes,
   scrollBehavior,
   mode: 'history'
-})
+});
 
 // Hydrate initial state
 if (window.__INITIAL_STATE__) {
@@ -38,7 +38,9 @@ router.beforeEach((to, from, next) => {
   }
 
   // Page title
-  if (to.meta.title) document.title = to.meta.title;
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
   next();
 });
 
@@ -51,7 +53,7 @@ router.beforeEach((to, from, next) => {
  */
 function beforeEnter(routes, beforeEnter) {
   return routes.map(route => {
-    return { ...route, beforeEnter }
+    return { ...route, beforeEnter };
   });
 }
 

@@ -32,10 +32,11 @@ export default {
   },
   watch: {
     isLoggedIn(val) {
-      if (!val)
+      if (!val) {
         this.$router.push({
           name: "login"
         });
+      }
     }
   },
   methods: mapActions(["logout"])
