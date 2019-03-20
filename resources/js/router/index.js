@@ -13,7 +13,6 @@ Vue.use(Router);
  */
 const router = new Router({
   routes,
-  scrollBehavior,
   mode: 'history'
 });
 
@@ -31,10 +30,14 @@ router.beforeEach((to, from, next) => {
 
   const isLoggedIn = store.getters['isLoggedIn'];
   if (to.matched.some(route => route.meta.auth === false)) {
-    if (isLoggedIn) return next({ name: 'dashboard' });
+    if (isLoggedIn) {
+      return next({ name: 'dashboard' });
+    }
   }
   else {
-    if (!isLoggedIn) return next({ name: 'login' });
+    if (!isLoggedIn) {
+      return next({ name: 'login' });
+    }
   }
 
   // Page title

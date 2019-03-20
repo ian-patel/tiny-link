@@ -5,7 +5,7 @@ import * as types from 'app/store/mutations/auth';
 export const state = {
   user: null,
   account: null,
-}
+};
 
 // mutations
 export const mutations = {
@@ -15,7 +15,7 @@ export const mutations = {
     state.user = null;
     state.account = null;
   },
-}
+};
 
 // actions
 export const actions = {
@@ -31,7 +31,7 @@ export const actions = {
     const response = await api.logout();
     commit(types.LOGOUT);
   },
-}
+};
 
 // getters
 export const getters = {
@@ -44,4 +44,4 @@ export const getters = {
   account(state) {
     return state.account;
   },
-}
+};

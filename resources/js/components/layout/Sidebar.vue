@@ -24,48 +24,48 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
       items: [
-        { title: "Links", name: "links", route: "links", icon: "link" },
+        { title: 'Links', name: 'links', route: 'links', icon: 'link' },
         {
-          title: "Reports",
-          name: "reports",
-          route: "reports",
-          icon: "bar-chart"
+          title: 'Reports',
+          name: 'reports',
+          route: 'reports',
+          icon: 'bar-chart'
         },
         {
-          title: "Domains",
-          name: "domains",
-          route: "domains",
-          icon: "upload"
+          title: 'Domains',
+          name: 'domains',
+          route: 'domains',
+          icon: 'upload'
         },
         {
-          title: "Settings",
-          name: "settings",
-          route: "settings",
-          icon: "setting"
+          title: 'Settings',
+          name: 'settings',
+          route: 'settings',
+          icon: 'setting'
         }
       ]
     };
   },
   computed: {
-    ...mapGetters(["user", "isLoggedIn"])
+    ...mapGetters(['user', 'isLoggedIn'])
   },
   watch: {
     isLoggedIn(val) {
       if (!val) {
         this.$router.push({
-          name: "login",
+          name: 'login',
           query: { r: this.$route.fullPath }
         });
       }
     }
   },
-  methods: mapActions(["logout"])
+  methods: mapActions(['logout'])
 };
 </script>
 

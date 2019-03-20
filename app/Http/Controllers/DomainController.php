@@ -35,7 +35,7 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|max:60',
         ]);
 

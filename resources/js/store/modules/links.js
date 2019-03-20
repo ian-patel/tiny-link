@@ -16,8 +16,6 @@ export const mutations = {
 
   // Save link dig
   [types.SAVE_LINKDIG] (state, { data }) {
-    console.log(data);
-
     state.dig = data;
   },
 };

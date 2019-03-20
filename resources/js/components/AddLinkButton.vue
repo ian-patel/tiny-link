@@ -66,9 +66,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import { isValidLink, favicon } from "app/util";
-import * as api from "app/api/links";
+import { mapGetters, mapActions } from 'vuex';
+import { isValidLink, favicon } from 'app/util';
+import * as api from 'app/api/links';
 
 const focus = {
   inserted(el) {
@@ -84,11 +84,11 @@ export default {
     },
     buttonSize: {
       type: String,
-      default: "large"
+      default: 'large'
     }
   },
   computed: {
-    ...mapGetters(["domains"]),
+    ...mapGetters(['domains']),
     favicon() {
       if (this.dig) {
         return favicon(this.dig.host);
@@ -104,11 +104,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["digLink"]),
+    ...mapActions(['digLink']),
     check() {
       this.form.validateFields(err => {
         if (!err) {
-          console.info("success");
+          console.info('success');
         }
       });
     },
@@ -122,7 +122,7 @@ export default {
     },
     onChange() {
       this.$nextTick(async () => {
-        const link = this.form.getFieldValue("longurl");
+        const link = this.form.getFieldValue('longurl');
         this.link = link;
 
         // Do not dig, if alredy
@@ -139,16 +139,14 @@ export default {
     handleSubmit(e) {
       e.preventDefault();
 
-      const link = this.form.getFieldValue("longurl");
+      const link = this.form.getFieldValue('longurl');
       if (!isValidLink(link)) {
         return;
       }
 
       this.form.validateFields(err => {
         if (!err) {
-          console.log(this.form.getFieldsValue());
-
-          console.info("success");
+          // console.log(this.form.getFieldsValue());
         }
       });
     }
