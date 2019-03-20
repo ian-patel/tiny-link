@@ -24,22 +24,22 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(["user", "isLoggedIn"])
+    ...mapGetters(['user', 'isLoggedIn'])
   },
   watch: {
     isLoggedIn(val) {
       if (!val) {
         this.$router.push({
-          name: "login"
+          name: 'login'
         });
       }
     }
   },
-  methods: mapActions(["logout"])
+  methods: mapActions(['logout'])
 };
 </script>
 

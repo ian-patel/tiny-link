@@ -108,7 +108,7 @@ export default {
     check() {
       this.form.validateFields(err => {
         if (!err) {
-          console.info('success');
+          // console.info('success');
         }
       });
     },
