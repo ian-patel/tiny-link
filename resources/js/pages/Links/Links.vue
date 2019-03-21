@@ -34,7 +34,7 @@
 
           <a-list-item
             slot="renderItem"
-            slot-scope="item"
+            slot-scope="item, index"
             @mouseover="mouseovering = index"
             @mouseout="mouseovering = -1"
           >
@@ -139,7 +139,7 @@ export default {
       };
     },
     hasLinks() {
-      return this.links.length > 0;
+      return 0; //this.links.length > 0;
     },
   },
   mounted() {

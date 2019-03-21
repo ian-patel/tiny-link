@@ -22,19 +22,13 @@
       <a-form :form="form" v-if="visible" @submit="handleSubmit">
         <!-- Domains -->
         <a-form-item>
-          <a-radio-group v-decorator="['domainname', {initialValue: '2l.nz'}]">
+          <a-select v-decorator="['domainname', {initialValue: '2l.nz'}]" style="width: 100%">
             <template v-for="domain in domains">
-              <a-radio
-                :style="{display: 'block'}"
-                :key="domain.name"
-                :value="domain.name"
-              >{{ domain.name }}</a-radio>
+              <a-select-option :key="domain.name" :value="domain.name">{{ domain.name }}</a-select-option>
             </template>
-          </a-radio-group>
+          </a-select>
         </a-form-item>
-
-        <a-divider/>
-
+        <!-- <a-divider/> -->
         <!-- Textarea -->
         <a-form-item>
           <a-textarea
@@ -47,15 +41,14 @@
             ]"
             placeholder="Type or paste a valid link (URL)"
           />
-
-          <h4 class="drawer__linktitle">
-            <template v-if="dig">
-              <img :src="favicon">
-              {{ dig.title }}
-            </template>
-          </h4>
         </a-form-item>
 
+        <template v-if="dig">
+          <h4 class="drawer__linktitle" v-if="dig.title">
+            <img :src="favicon">
+            {{ dig.title }}
+          </h4>
+        </template>
 
         <div class="drawer__footer">
           <a-button html-type="submit" type="primary" size="large" :style="{width: '200px'}">Create</a-button>
@@ -66,9 +59,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { isValidLink, favicon } from 'app/util';
-import * as api from 'app/api/links';
+import { mapGetters, mapActions } from "vuex";
+import { isValidLink, favicon } from "app/util";
+import * as api from "app/api/links";
 
 const focus = {
   inserted(el) {
@@ -84,11 +77,11 @@ export default {
     },
     buttonSize: {
       type: String,
-      default: 'large'
+      default: "large"
     }
   },
   computed: {
-    ...mapGetters(['domains']),
+    ...mapGetters(["domains"]),
     favicon() {
       if (this.dig) {
         return favicon(this.dig.host);
@@ -104,7 +97,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['digLink']),
+    ...mapActions(["digLink"]),
     check() {
       this.form.validateFields(err => {
         if (!err) {
@@ -122,7 +115,7 @@ export default {
     },
     onChange() {
       this.$nextTick(async () => {
-        const link = this.form.getFieldValue('longurl');
+        const link = this.form.getFieldValue("longurl");
         this.link = link;
 
         // Do not dig, if alredy
@@ -139,8 +132,16 @@ export default {
     handleSubmit(e) {
       e.preventDefault();
 
-      const link = this.form.getFieldValue('longurl');
+      const link = this.form.getFieldValue("longurl");
       if (!isValidLink(link)) {
+          this.form.setFields({
+            ['longurl']: {
+              value: link,
+              errors: [{
+                "message": "Type or paste a link (URL)",
+              }]
+            }
+          })
         return;
       }
 
@@ -174,33 +175,4 @@ export default {
   }
 }
 
-.ant-form-item-label label {
-  font-size: 16px !important;
-
-  &:after,
-  &:before {
-    display: none;
-  }
-}
-
-.ant-radio-group {
-  label {
-    position: relative;
-    line-height: 28px;
-    align-items: center;
-    width: 210px;
-    cursor: pointer;
-    padding: 5px 10px;
-    margin-bottom: 10px;
-    border-radius: 3px;
-
-    &.ant-radio-wrapper-checked {
-      display: block;
-      // background: linear-gradient(45deg, #135fac 1%, #1e88e5 64%, #40baf5 97%);
-      background: linear-gradient(45deg, #5C5E61 1%, #84868B 64%, #A6A7AB 97%);
-      color: #fff;
-      box-shadow: 0 5px 30px -5px rgba(37, 45, 51, 0.5);
-    }
-  }
-}
 </style>
