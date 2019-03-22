@@ -26,7 +26,7 @@ class Link extends Model
      * @var array
      */
     protected $hidden = [
-        'account_id', 'deleted_at', 'created_by_id', 'domain'
+        'account_id', 'deleted_at', 'created_by_id', 'domain', 'id',
     ];
 
     /**

@@ -2,10 +2,8 @@ const path = require("path");
 
 module.exports = {
   root: true,
-  extends: [
-    "airbnb",
-    "plugin:vue/recommended",
-  ],
+  parser: "babel-eslint",
+  extends: "eslint-config-airbnb",
   env: {
     browser: true
   },

@@ -12,32 +12,34 @@
     </a-tooltip>
 
     <a-drawer
-      title="Create tiny link"
-      placement="right"
+      placement="top"
       :closable="false"
       class="drawer"
       @close="visible = false"
       :visible="visible"
+      height="auto"
     >
-      <a-form :form="form" v-if="visible" @submit="handleSubmit">
+      <a-form class="drawer__form" :form="form" v-if="visible">
         <!-- Domains -->
-        <a-form-item>
+        <!-- <a-form-item>
           <a-select v-decorator="['domainname', {initialValue: '2l.nz'}]" style="width: 100%">
             <template v-for="domain in domains">
               <a-select-option :key="domain.name" :value="domain.name">{{ domain.name }}</a-select-option>
             </template>
           </a-select>
-        </a-form-item>
-        <!-- <a-divider/> -->
+        </a-form-item>-->
         <!-- Textarea -->
-        <a-form-item>
-          <a-textarea
-            :rows="4"
+        <h2>Create tiny link</h2>
+        <a-divider/>
+
+        <a-form-item label="Paste a valid long link" :colon="colon">
+          <a-input
             v-focus
+            size="large"
             @change="onChange"
             v-decorator="[
               'longurl',
-              {rules: [{ required: true, message: 'Type or paste a link (URL)' }]}
+              {rules: [{ required: false, message: 'Type or paste a link (URL)' }]}
             ]"
             placeholder="Type or paste a valid link (URL)"
           />
@@ -50,9 +52,9 @@
           </h4>
         </template>
 
-        <div class="drawer__footer">
+        <!-- <div class="drawer__footer">
           <a-button html-type="submit" type="primary" size="large" :style="{width: '200px'}">Create</a-button>
-        </div>
+        </div>-->
       </a-form>
     </a-drawer>
   </span>
@@ -93,70 +95,58 @@ export default {
       visible: false,
       form: this.$form.createForm(this),
       dig: null,
-      link: null
+      colon: false,
+      link: null,
+      domain: '2l.nz',
     };
   },
   methods: {
-    ...mapActions(["digLink"]),
-    check() {
-      this.form.validateFields(err => {
-        if (!err) {
-          // console.info('success');
-        }
-      });
-    },
+    ...mapActions(["createLink"]),
     openDrawer() {
       this.visible = true;
-      this.$nextTick(() => {
-        this.form.setFieldsValue({
-          longurl: this.link
-        });
-      });
+      // this.$nextTick(() => {
+      //   this.form.setFieldsValue({
+      //     longurl: this.link
+      //   });
+      // });
     },
-    onChange() {
-      this.$nextTick(async () => {
-        const link = this.form.getFieldValue("longurl");
-        this.link = link;
-
-        // Do not dig, if alredy
-        if (this.dig && this.dig.link === link) {
-          return;
-        }
-
-        if (isValidLink(link)) {
-          const { data } = await api.dig({ link: link });
-          this.dig = data;
-        }
-      });
-    },
-    handleSubmit(e) {
-      e.preventDefault();
-
-      const link = this.form.getFieldValue("longurl");
-      if (!isValidLink(link)) {
-          this.form.setFields({
-            ['longurl']: {
-              value: link,
-              errors: [{
-                "message": "Type or paste a link (URL)",
-              }]
-            }
-          })
+    onChange(e) {
+      // only paste event will create link
+      if (e.inputType !== "insertFromPaste") {
         return;
       }
 
-      this.form.validateFields(err => {
-        if (!err) {
-          // console.log(this.form.getFieldsValue());
+      this.$nextTick(async () => {
+        const link = this.form.getFieldValue("longurl");
+
+        if (!isValidLink(link)) {
+          this.form.setFields({
+            ["longurl"]: {
+              value: link,
+              errors: [{ message: "Paste a valid link" }]
+            }
+          });
+          return;
         }
+
+        this.createLink({
+          longLink: link,
+          domain: this.domain,
+          source: "website"
+        });
       });
-    }
+    } // onchange
   }
 };
 </script>
 
 <style lang="scss" scopped>
 .drawer {
+  &__form {
+    max-width: 500px;
+    margin: auto !important;
+  }
+
   &__linktitle {
     height: 40px;
     overflow: hidden;
@@ -174,5 +164,4 @@ export default {
     border-radius: 0 0 4px 4px;
   }
 }
-
 </style>

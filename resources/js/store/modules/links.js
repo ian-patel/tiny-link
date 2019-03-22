@@ -10,12 +10,12 @@ export const state = {
 // mutations
 export const mutations = {
   // Save links
-  [types.SAVE_LINKS] (state, { data }) {
+  [types.SAVE_LINKS](state, { data }) {
     state.data = data;
   },
 
   // Save link dig
-  [types.SAVE_LINKDIG] (state, { data }) {
+  [types.SAVE_NEWLINK](state, { data }) {
     state.dig = data;
   },
 };
@@ -37,16 +37,16 @@ export const actions = {
   },
 
   /**
-   * Dig link
+   * create link
    * @param  {Function} options.commit
-   * @return {Object} user
+   * @return {Object} link
    */
-  async digLink({ commit }, param) {
-    const { data } = await api.dig(param);
+  async createLink({ commit }, param) {
+    const { data } = await api.create(param);
 
-    if (!_.isEmpty(data)) {
-      commit(types.SAVE_LINKDIG, { data: data });
-    }
+    // if (!_.isEmpty(data)) {
+    //   commit(types.SAVE_NEWLINK, { data });
+    // }
 
     return data;
   },
@@ -59,5 +59,5 @@ export const getters = {
   },
   dig(state) {
     return state.dig;
-  }
+  },
 };

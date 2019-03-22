@@ -36,5 +36,5 @@ Route::group(['prefix' => 'domains'], function () {
 Route::group(['prefix' => 'links'], function () {
     Route::get('/', 'LinkController@index');
     Route::get('dig', 'LinkController@dig');
-    Route::post('add', 'LinkController@store');
+    Route::post('create', 'LinkController@store');
 });
