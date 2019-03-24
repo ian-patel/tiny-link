@@ -4,25 +4,37 @@ use Illuminate\Support\Str;
 use PulkitJalan\GeoIP\GeoIP;
 use Illuminate\Encryption\Encrypter;
 
-if (! function_exists('getHost')) {
+if (!function_exists('getHost')) {
     /**
      * Get the hostname for the url.
      *
      * @return string
      */
-    function getHost(string $url): ?string
+    function getHost(string $url): ? string
     {
         return parse_url($url, PHP_URL_HOST) ?? parse_url($url, PHP_URL_PATH) ?? null;
     }
 }
 
-if (! function_exists('getTitle')) {
+if (!function_exists('uuid')) {
+    /**
+     * Get the hostname for the url.
+     *
+     * @return string
+     */
+    function uuid(): ? string
+    {
+        return (string)Str::uuid();
+    }
+}
+
+if (!function_exists('getTitle')) {
     /**
      * Get Link title
      *
      * @return string
      */
-    function getTitle($link = null): ?string
+    function getTitle($link = null): ? string
     {
         try {
             $data = @file_get_contents($link);
@@ -60,7 +72,7 @@ if (!function_exists('getEncrypter')) {
     }
 }
 
-if (! function_exists('getGeoIP')) {
+if (!function_exists('getGeoIP')) {
     /**
      * Get GeoIP.
      *

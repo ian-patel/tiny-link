@@ -29,12 +29,14 @@ class Device extends Model
             $this->browser_version = $agent->version($browser) ?? 'Other';
 
             $this->device = $agent->isPhone() ?
-                'Phone' :
-                $agent->isTablet() ?
-                    'Tablet' :
-                    $agent->isDesktop() ? 'Desktop' : 'Other';
+                'Phone' : $agent->isTablet() ?
+                'Tablet' : $agent->isDesktop() ? 'Desktop' : 'Other';
 
             $this->ip = request()->ip();
+        }
+
+        if (!$this->uuid) {
+            $this->uuid = uuid();
         }
 
         // Save

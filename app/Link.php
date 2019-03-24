@@ -17,7 +17,8 @@ class Link extends Model
      * @var array
      */
     protected $fillable = [
-        'link', 'source',
+        'link',
+        'source',
     ];
 
     /**
@@ -26,7 +27,11 @@ class Link extends Model
      * @var array
      */
     protected $hidden = [
-        'account_id', 'deleted_at', 'created_by_id', 'domain', 'id',
+        'id',
+        'domain_id',
+        'account_id',
+        'deleted_at',
+        'created_by_id',
     ];
 
     /**
@@ -112,6 +117,10 @@ class Link extends Model
             $this->hostname = getHost($this->link);
         }
 
+        if (!$this->uuid) {
+            $this->uuid = uuid();
+        }
+
         // Save
         $save = parent::save($options);
 
@@ -128,7 +137,7 @@ class Link extends Model
      *
      * @return array
      */
-    public function getShortLinkAttribute(): ?array
+    public function getShortLinkAttribute(): ? array
     {
         return [
             "full" => "{$this->domain->fullDomainName}{$this->slug}",

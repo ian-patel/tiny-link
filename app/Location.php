@@ -28,6 +28,10 @@ class Location extends Model
             $this->ip = request()->ip();
         }
 
+        if (!$this->uuid) {
+            $this->uuid = uuid();
+        }
+
         // Save
         return parent::save($options);
     }

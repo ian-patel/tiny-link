@@ -14,20 +14,17 @@ class CreateDomainsTable extends Migration
     public function up()
     {
         Schema::create('domains', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->unsignedInteger('account_id')->index();
-            $table->unsignedInteger('created_by_id')->index()->nullable();
-
+            $table->bigIncrements('id');
+            $table->uuid('uuid')->index();
+            $table->unsignedBigInteger('account_id')->index();
+            $table->unsignedBigInteger('created_by_id')->index()->nullable();
             $table->string('name')->index();
             $table->string('scheme')->nullable();
             $table->string('host')->nullable();
             $table->boolean('is_default')->default(0);
             $table->boolean('is_active')->default(0);
-
             $table->timestamps();
             $table->softDeletes();
-
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });
     }

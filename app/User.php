@@ -19,7 +19,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider', 'provider_user_id', 'owner', 'avatar', 'account_id'
+        'name',
+        'owner',
+        'email',
+        'avatar',
+        'provider',
+        'password',
+        'account_id',
+        'provider_user_id',
     ];
 
     /**
@@ -28,7 +35,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'email_verified_at', 'id', 'provider_user_id', 'updated_at',
+        'id',
+        'password',
+        'updated_at',
+        'account_id',
+        'remember_token',
+        'provider_user_id',
     ];
 
     /**
@@ -62,5 +74,20 @@ class User extends Authenticatable
         $token->save();
 
         return $token->token;
+    }
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = []): bool
+    {
+        if (!$this->uuid) {
+            $this->uuid = uuid();
+        }
+
+        return parent::save($options);
     }
 }

@@ -25,7 +25,11 @@ class Domain extends Model
      * @var array
      */
     protected $hidden = [
-        'created_by', 'account_id', 'deleted_at',
+        'id',
+        'created_by',
+        'account_id',
+        'deleted_at',
+        'created_by_id',
     ];
 
     /**
@@ -75,6 +79,10 @@ class Domain extends Model
             $this->is_default = true;
         }
 
+        if (!$this->uuid) {
+            $this->uuid = uuid();
+        }
+
         // Save
         return parent::save($options);
     }
@@ -84,7 +92,7 @@ class Domain extends Model
      *
      * @return string
      */
-    public function getFullDomainNameAttribute(): ?string
+    public function getFullDomainNameAttribute(): ? string
     {
         return "{$this->scheme}://{$this->name}/";
     }

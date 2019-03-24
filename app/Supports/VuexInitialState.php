@@ -12,14 +12,15 @@ class VuexInitialState
     public static function session(): array
     {
         $user = request()->user();
+        $account = $user->account ?? null;
         return [
             'auth' => [
                 'user' => $user,
-                'account' => $user->account ?? null,
+                'account' => $account ?? null,
             ],
-            'domains' => $user->account->domains ?? null,
+            'domains' => $account->domains ?? null,
             'links' => [
-                'data' => $user->account->links()->limit(10)->latest()->get() ?? null,
+                'data' => $account ? $account->links()->limit(10)->latest()->get() ?? null : null,
                 'activeLink' => null,
             ],
         ];

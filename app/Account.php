@@ -22,7 +22,8 @@ class Account extends Model
      * @var array
      */
     protected $hidden = [
-        'created_by',
+        'created_by_id',
+        'id',
     ];
 
     /**
@@ -58,5 +59,20 @@ class Account extends Model
     {
         $this->created_by_id = $user->id;
         return $this->save();
+    }
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = []): bool
+    {
+        if (!$this->uuid) {
+            $this->uuid = uuid();
+        }
+
+        return parent::save($options);
     }
 }

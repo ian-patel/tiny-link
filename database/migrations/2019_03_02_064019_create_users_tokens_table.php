@@ -14,8 +14,9 @@ class CreateUsersTokensTable extends Migration
     public function up()
     {
         Schema::create('auth_tokens', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id')->index();
+            $table->bigIncrements('id');
+            $table->uuid('uuid')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('token');
             $table->dateTime('expire_at');
             $table->unsignedBigInteger('location_id');

@@ -107,6 +107,10 @@ class AuthToken extends Model
             $this->device_id = Device::create()->id;
         }
 
+        if (!$this->uuid) {
+            $this->uuid = uuid();
+        }
+
         // Save
         return parent::save($options);
     }

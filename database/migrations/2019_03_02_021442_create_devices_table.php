@@ -15,6 +15,7 @@ class CreateDevicesTable extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid')->index();
             $table->string('device_name')->nullable();
             $table->string('platform')->nullable();
             $table->string('platform_version')->nullable();
