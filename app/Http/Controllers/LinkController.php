@@ -26,7 +26,7 @@ class LinkController extends Controller
             ->when($q, function ($query) use ($q) {
                 return $query->search($q);
             })
-            ->simplePaginate((int) $limit);
+            ->simplePaginate((int)$limit);
 
         return response()->json([
             'success' => true,
