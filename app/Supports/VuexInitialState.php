@@ -20,7 +20,7 @@ class VuexInitialState
             ],
             'domains' => $account->domains ?? null,
             'links' => [
-                'data' => $account ? $account->links()->limit(10)->latest()->get() ?? null : null,
+                'data' => $account ? $account->links()->limit(10)->latest()->get()->keyBy('uuid') ?? null : null,
                 'activeLink' => null,
             ],
         ];
