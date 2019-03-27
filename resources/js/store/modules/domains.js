@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 
 // state
 export const state = {
@@ -16,7 +17,8 @@ export const actions = {
 
 // getters
 export const getters = {
-  domains(state) {
-    return state;
-  },
+  /**
+   * Get the domains
+   */
+  domains: state => state.data,
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import * as api from 'app/api/auth';
 import * as types from 'app/store/mutations/auth';
 
@@ -26,7 +27,7 @@ export const actions = {
    * @return
    */
   async logout({
-    commit
+    commit,
   }) {
     const response = await api.logout();
     commit(types.LOGOUT);
@@ -35,13 +36,16 @@ export const actions = {
 
 // getters
 export const getters = {
-  isLoggedIn(state) {
-    return state.user !== null;
-  },
-  user(state) {
-    return state.user;
-  },
-  account(state) {
-    return state.account;
-  },
+  /**
+   * Determine the use is loggedin
+   */
+  isLoggedIn: state => state.user !== null,
+  /**
+   * Get the account
+   */
+  account: state => state.account,
+  /**
+   * Get the use
+   */
+  user: state => state.user,
 };
