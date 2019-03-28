@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TitleBar title="Reports" />
+    <TitleBar title="Reports"/>
   </div>
 </template>
 

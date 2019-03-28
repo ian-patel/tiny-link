@@ -1,7 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import Vue from 'vue';
-import routes from './routes';
-import Router from 'vue-router';
 import store from 'app/store';
+import Router from 'vue-router';
+import routes from './routes';
 
 Vue.use(Router);
 
@@ -13,14 +14,14 @@ Vue.use(Router);
  */
 const router = new Router({
   routes,
-  mode: 'history'
+  mode: 'history',
 });
 
 // Hydrate initial state
 if (window.__INITIAL_STATE__) {
   store.replaceState({
     ...store.state,
-    ...window.__INITIAL_STATE__
+    ...window.__INITIAL_STATE__,
   });
 }
 
@@ -28,16 +29,19 @@ if (window.__INITIAL_STATE__) {
 router.beforeEach((to, from, next) => {
   // check auth
 
-  const isLoggedIn = store.getters['isLoggedIn'];
+  const {
+    isLoggedIn,
+  } = store.getters;
   if (to.matched.some(route => route.meta.auth === false)) {
     if (isLoggedIn) {
-      return next({ name: 'dashboard' });
+      return next({
+        name: 'dashboard',
+      });
     }
-  }
-  else {
-    if (!isLoggedIn) {
-      return next({ name: 'login' });
-    }
+  } else if (!isLoggedIn) {
+    return next({
+      name: 'login',
+    });
   }
 
   // Page title
@@ -55,9 +59,10 @@ router.beforeEach((to, from, next) => {
  * @return {Array}
  */
 function beforeEnter(routes, beforeEnter) {
-  return routes.map(route => {
-    return { ...route, beforeEnter };
-  });
+  return routes.map(route => ({
+    ...route,
+    beforeEnter,
+  }));
 }
 
 /**
@@ -67,10 +72,12 @@ function beforeEnter(routes, beforeEnter) {
  * @return {Object}
  */
 function scrollBehavior(to, from, savedPosition) {
-  return savedPosition || { x: 0, y: 0 };
+  return savedPosition || {
+    x: 0,
+    y: 0,
+  };
 }
 
 // sync(store, router);
 
 export default router;
-

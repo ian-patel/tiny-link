@@ -1,1 +1,4 @@
-export { default } from './Links.vue';
+export {
+  default,
+}
+  from './Links.vue';

@@ -1,7 +1,9 @@
 <template>
   <div class="titlebar">
     <h1 class="titlebar__title">{{ title }}</h1>
-    <a-divider orientation="right" class="titlebar__divider"><AddLinkButton /></a-divider>
+    <a-divider orientation="right" class="titlebar__divider">
+      <CreateLinkButton/>
+    </a-divider>
   </div>
 </template>
 
@@ -10,16 +12,16 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .titlebar {
-
-  &__title, &__divider {
+  &__title,
+  &__divider {
     margin: 0 !important;
   }
 }

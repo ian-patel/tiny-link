@@ -1,1 +1,4 @@
-export { default } from './Login.vue';
+export {
+  default,
+}
+  from './Login.vue';

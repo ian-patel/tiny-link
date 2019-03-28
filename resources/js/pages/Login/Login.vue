@@ -1,7 +1,5 @@
 <template>
-  <div class="bg">
-    Login
-  </div>
+  <div class="bg">Login</div>
 </template>
 
 <style lang="scss" scoped>

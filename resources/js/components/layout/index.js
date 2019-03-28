@@ -1,1 +1,4 @@
-export { default } from './Layout.vue';
+export {
+  default,
+}
+  from './Layout.vue';

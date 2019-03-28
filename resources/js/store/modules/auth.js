@@ -29,7 +29,7 @@ export const actions = {
   async logout({
     commit,
   }) {
-    const response = await api.logout();
+    await api.logout();
     commit(types.LOGOUT);
   },
 };

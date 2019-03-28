@@ -1,1 +1,4 @@
-export { default } from './Domains.vue';
+export {
+  default,
+}
+  from './Domains.vue';

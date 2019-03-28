@@ -1,1 +1,4 @@
-export { default } from './Reports.vue';
+export {
+  default,
+}
+  from './Reports.vue';

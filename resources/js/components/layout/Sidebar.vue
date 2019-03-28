@@ -133,7 +133,7 @@ export default {
     border-bottom: 10px solid transparent;
     border-top: 10px solid transparent;
     border-right: 10px solid #ffffff;
-    content: " ";
+    content: ' ';
     position: absolute;
     right: 0;
     top: 35px;

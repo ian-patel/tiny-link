@@ -39,12 +39,12 @@
             @mouseout="mouseovering = -1"
           >
             <a-list-item-meta>
-              <a slot="title" href="https://vue.ant.design/">{{item.short_link.link}}</a>
+              <a slot="title" target="new" :href="item.short_link.full">{{ item.title }}</a>
               <a-avatar size="small" slot="avatar" :src="faviconLink(item.hostname)"/>
 
               <div slot="description">
-                {{ item.title }}
-                <div class="tags-list" v-show="false">
+                {{ item.short_link.link }}
+                <div class="tags-list">
                   <a-tag color="blue">blue</a-tag>
                   <a-tag color="blue">blue</a-tag>
                   <a-tag color="blue">blue</a-tag>
@@ -83,9 +83,12 @@
                 </a-tooltip>
                 <a-tooltip>
                   <template slot="title">Edit</template>
-                  <a href="#" class="icons-list__icon">
+                  <router-link
+                    :to="{name: 'editLink', params: { uuid: item.uuid }}"
+                    class="icons-list__icon"
+                  >
                     <a-icon type="edit"/>
-                  </a>
+                  </router-link>
                 </a-tooltip>
                 <a-tooltip>
                   <template slot="title">Delete</template>
@@ -102,16 +105,17 @@
     <a-row v-else type="flex" justify="space-around" align="middle">
       <a-col :sm="18" :md="12" :lg="10" :xl="6" :style="{textAlign: 'Center'}">
         <img src="images/empty.svg" class="emptybox">
-        <AddLinkButton title="Create first link"/>
+        <CreateLinkButton title="Create first link"/>
       </a-col>
     </a-row>
+    <router-view/>
   </div>
 </template>
 
 <script>
 // import EmptyBox from "svg/authentication.svg";
-import { mapGetters, mapActions } from "vuex";
-import { favicon } from "app/util";
+import { mapGetters, mapActions } from 'vuex';
+import { favicon } from 'app/util';
 
 export default {
   data() {
@@ -131,7 +135,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["links"]),
+    ...mapGetters(['links']),
     fetchQuery() {
       return {
         limit: this.limit,
@@ -139,8 +143,8 @@ export default {
       };
     },
     hasLinks() {
-      return 0; //this.links.length > 0;
-    },
+      return this.links.length > 0;
+    }
   },
   mounted() {
     if (!this.hasLinks) {
@@ -148,12 +152,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetchLinks"]),
+    ...mapActions(['fetchLinks', 'popupUpdateModal']),
     fetchData() {
       this.fetchLinks(this.fetchQuery);
     },
     faviconLink(url) {
       return favicon(url);
+    },
+    update(link) {
+      this.popupUpdateModal(link);
     }
   }
 };

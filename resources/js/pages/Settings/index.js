@@ -1,1 +1,4 @@
-export { default } from './Settings.vue';
+export {
+  default,
+}
+  from './Settings.vue';
