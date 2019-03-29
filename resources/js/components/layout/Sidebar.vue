@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-
 export default {
   data() {
     return {
@@ -51,21 +49,7 @@ export default {
         }
       ]
     };
-  },
-  computed: {
-    ...mapGetters(['user', 'isLoggedIn'])
-  },
-  watch: {
-    isLoggedIn(val) {
-      if (!val) {
-        this.$router.push({
-          name: 'login',
-          query: { r: this.$route.fullPath }
-        });
-      }
-    }
-  },
-  methods: mapActions(['logout'])
+  }
 };
 </script>
 
