@@ -4,7 +4,7 @@
     <a-layout>
       <topbar/>
       <a-layout-content :style="{ margin: '0px 16px 0' }" type="flex" justify="center">
-        <div :style="{ padding: '20px', background: '#fff', minHeight: '360px' }">
+        <div class="container" :style="{ padding: '0px 20px', minHeight: window.height }">
           <router-view/>
         </div>
       </a-layout-content>
@@ -12,4 +12,23 @@
     </a-layout>
   </a-layout>
 </template>
+
 <script>
+export default {
+  mounted() {
+    this.handleHeight();
+  },
+  methods: {
+    handleHeight() {
+      this.window.height = window.innerHeight + 'px';
+    }
+  },
+  data() {
+    return {
+      window: {
+        height: 0
+      }
+    };
+  }
+};
+</script>
